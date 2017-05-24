@@ -20,21 +20,45 @@ using namespace std::chrono;
 mt19937 random_engine(time(0));
 
 vector<int> MakeRandomArray(int numElements);
-double MinDistance(vector<int> numbers);
+tuple<float,long> MinDistance(vector<int> numbers);
 double MinDistance2(vector<int> numbers);
 string ConvertArrayToString(vector <int> Array);
 
-int main(){
+typedef vector<tuple<float,int>>listOfOperationResults;
 
+int main(){
+    cout << "Assessment 1: MinDist | Liam Abel n9467874 & Sai Whiley n9454829" << endl;
     vector <int> results = {};
     vector<int> results2 = {};
-    for(int i=0; i<25; i++){
-        results.push_back(MinDistance(MakeRandomArray(100)));
-        results2.push_back(MinDistance2(MakeRandomArray(100)));
+    int numValues = 0;
+    int increments = 10;
+    int trials = 100;
+    long operationsTotal;
+    long meanOperations;
+
+    listOfOperationResults opResults;
+
+    ofstream resultsStream;
+    resultsStream.open("results.csv", fstream::app);
+    resultsStream << "Array Size,Mean Operations";
+    for(int i = 0; i < increments; i++){
+        numValues +=10;
+        opResults.clear();
+        for(int j = 0; j < trials; j++){
+            opResults.emplace_back(MinDistance(MakeRandomArray(numValues)));
+            for(auto &n : opResults){
+            operationsTotal += get<1>(n);
+            }
+            meanOperations = operationsTotal/trials;
+
+            resultsStream << "\r" << numValues << "," << meanOperations << ",";
+
+            meanOperations = 0;
+            operationsTotal = 0;
+        }
+
     }
-    cout << ConvertArrayToString(results) << endl;
-    cout << ConvertArrayToString(results2) << endl;
-    Sleep(60000);
+
 }
 
 string ConvertArrayToString(vector <int> Array){
@@ -53,16 +77,19 @@ vector<int> MakeRandomArray(int numElements){
     return testArray;
 }
 
-double MinDistance(vector<int> numbers){
+tuple<float,long> MinDistance(vector<int> numbers){  //takes vector and returns <minDist, Operations>
+    int basicOperations = 0;
     double dmin = numeric_limits<double>::max();
     for(int i=0;i<numbers.size()-1;i++){
         for(int j=0;j<numbers.size()-1;j++){
+            basicOperations++;
             if(i!=j&&abs(numbers[i]-numbers[j]) < dmin){
-                dmin = numbers[i]-numbers[j];
+                dmin = abs(numbers[i]-numbers[j]);
             }
         }
     }
-    return dmin;
+    cout << "array size: " << numbers.size() << " mindist: " << dmin << " basic operations: " << basicOperations <<endl;
+    return make_tuple(dmin, basicOperations);
 }
 
 double MinDistance2(vector<int> numbers){
@@ -70,7 +97,7 @@ double MinDistance2(vector<int> numbers){
     double dmin = numeric_limits<double>::max();
     for(int i=0;i<numbers.size()-2;i++){
         for(int j=0;j<numbers.size()-1;j++){
-            temp = numbers[i] - numbers[j];
+            temp = abs(numbers[i] - numbers[j]);
             if(temp < dmin){
                 dmin = temp;
             }
