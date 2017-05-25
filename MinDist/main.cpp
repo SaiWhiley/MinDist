@@ -33,8 +33,8 @@ typedef vector<tuple<float,float>>listOfTimeResults;
 
 int main(){
     cout << "Assessment 1: MinDist | Liam Abel n9467874 & Sai Whiley n9454829" << endl;
-    //runBasicOperations(100, 10);
-    runTimeElapsed(1000, 1);
+    runBasicOperations(700, 1);
+    runTimeElapsed(700, 1);
 
 }
 
@@ -79,6 +79,7 @@ void runTimeElapsed(int increments, int trials){
 
         resultsStream << "\r" << numValues << "," << meanRuntimeONE << "," << meanRuntimeTWO;
     }
+    resultsStream.close();
 
 }
 
@@ -120,9 +121,8 @@ void runBasicOperations(int increments, int trials){
 
         resultsStream << "\r" << numValues << "," << meanOperationsONE << "," << meanOperationsTWO;
 
-
-
     }
+    resultsStream.close();
 }
 
 
@@ -146,8 +146,8 @@ vector<int> MakeRandomArray(int numElements){
 tuple<float,long> MinDistance(vector<int> numbers){  //takes vector and returns <minDist, Operations>
     long int basicOperations = 0;
     double dmin = numeric_limits<double>::max();
-    for(int i=0;i<numbers.size()-1;i++){
-        for(int j=0;j<numbers.size()-1;j++){
+    for(int i=0;i<=numbers.size()-1;i++){
+        for(int j=0;j<=numbers.size()-1;j++){
             basicOperations+= 2;
             if(i!=j&&abs(numbers[i]-numbers[j]) < dmin){ //2 comparison operations
                 dmin = abs(numbers[i]-numbers[j]);
@@ -162,8 +162,8 @@ tuple<float, long> MinDistance2(vector<int> numbers){ //takes ve4c
     long int basicOperations = 0;
     double temp = 0;
     double dmin = numeric_limits<double>::max();
-    for(int i=0;i<numbers.size()-2;i++){
-        for(int j=0;j<numbers.size()-1;j++){
+    for(int i=0;i<=numbers.size()-2;i++){
+        for(int j=0;j<=numbers.size()-1;j++){
             temp = abs(numbers[i] - numbers[j]);
             basicOperations++;
             if(temp < dmin){
@@ -178,8 +178,8 @@ tuple<float, float> MinDistTIME(vector<int> numbers){
     double dmin = numeric_limits<double>::max();
     duration<double> timeElapsed;
     steady_clock::time_point startTime  = steady_clock::now();
-    for(int i=0;i<numbers.size()-1;i++){
-        for(int j=0;j<numbers.size()-1;j++){
+    for(int i=0;i<=numbers.size()-1;i++){
+        for(int j=0;j<=numbers.size()-1;j++){
             if(i!=j&&abs(numbers[i]-numbers[j]) < dmin){ //2 comparison operations
                 dmin = abs(numbers[i]-numbers[j]);
             }
@@ -196,8 +196,8 @@ tuple<float, float> MinDist2TIME(vector<int> numbers){
     double dmin = numeric_limits<double>::max();
     duration<double> timeElapsed;
     steady_clock::time_point startTime = steady_clock::now();
-    for(int i=0;i<numbers.size()-2;i++){
-        for(int j=0;j<numbers.size()-1;j++){
+    for(int i=0;i<=numbers.size()-2;i++){
+        for(int j=0;j<=numbers.size()-1;j++){
             temp = abs(numbers[i] - numbers[j]);
             if(temp < dmin){
                 dmin = temp;
