@@ -33,8 +33,8 @@ typedef vector<tuple<float,float>>listOfTimeResults;
 
 int main(){
     cout << "Assessment 1: MinDist | Liam Abel n9467874 & Sai Whiley n9454829" << endl;
-    runBasicOperations(700, 1);
-    runTimeElapsed(700, 1);
+    runBasicOperations(400, 1);
+    runTimeElapsed(400, 1);
 
 }
 
@@ -158,12 +158,12 @@ tuple<float,long> MinDistance(vector<int> numbers){  //takes vector and returns 
     return make_tuple(dmin, basicOperations);
 }
 
-tuple<float, long> MinDistance2(vector<int> numbers){ //takes ve4c
+tuple<float, long> MinDistance2(vector<int> numbers){
     long int basicOperations = 0;
     double temp = 0;
     double dmin = numeric_limits<double>::max();
     for(int i=0;i<=numbers.size()-2;i++){
-        for(int j=0;j<=numbers.size()-1;j++){
+        for(int j=i+1;j<=numbers.size()-1;j++){
             temp = abs(numbers[i] - numbers[j]);
             basicOperations++;
             if(temp < dmin){
@@ -197,7 +197,7 @@ tuple<float, float> MinDist2TIME(vector<int> numbers){
     duration<double> timeElapsed;
     steady_clock::time_point startTime = steady_clock::now();
     for(int i=0;i<=numbers.size()-2;i++){
-        for(int j=0;j<=numbers.size()-1;j++){
+        for(int j=i+1;j<=numbers.size()-1;j++){
             temp = abs(numbers[i] - numbers[j]);
             if(temp < dmin){
                 dmin = temp;
