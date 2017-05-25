@@ -25,6 +25,7 @@ tuple<float, long> MinDistance2(vector<int> numbers);
 tuple<float, float> MinDistTIME(vector<int> numbers);
 tuple<float, float> MinDist2TIME(vector<int> numbers);
 void runBasicOperations(int increments, int trials);
+void runTimeElapsed(int increments, int trials);
 string ConvertArrayToString(vector <int> Array);
 
 typedef vector<tuple<float,int>>listOfOperationResults;
@@ -32,7 +33,8 @@ typedef vector<tuple<float,float>>listOfTimeResults;
 
 int main(){
     cout << "Assessment 1: MinDist | Liam Abel n9467874 & Sai Whiley n9454829" << endl;
-    runBasicOperations(100, 10);
+    //runBasicOperations(100, 10);
+    runTimeElapsed(1000, 1);
 
 }
 
