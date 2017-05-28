@@ -40,8 +40,10 @@ typedef vector<tuple<float,float>>listOfTimeResults;
 
 int main(){
     cout << "Assessment 1: MinDist | Liam Abel n9467874 & Sai Whiley n9454829" << endl;
-    runBasicOperations(400, 1);
-    runTimeElapsed(400, 1);
+    runBasicOperations(400, 10);
+    runTimeElapsed(400, 10);
+
+
 
 }
 //runTimeElapsed
@@ -92,6 +94,41 @@ void runTimeElapsed(int increments, int trials){
     }
     resultsStream.close();
 
+}
+//runEdgeTests
+//creates arrays and vectors to test edge cases
+void runEdgeTests(){
+    static int sortedArray[] = {1,10,20,30,40,50};
+    vector<int> sortedVector(sortedArray, sortedArray + sizeof(sortedArray) / sizeof(sortedArray[0]));
+    static int unsortedArray[] = {20,40,1,10,30,50};
+    vector<int> unsortedVector(unsortedArray, unsortedArray + sizeof(unsortedArray) / sizeof(unsortedArray[0]));
+    static int duplicateArray[] = {1,1,1,10,20,30,40,50};
+    vector<int> duplicateVector(duplicateArray, duplicateArray + sizeof(duplicateArray) / sizeof(duplicateArray[0]));
+    static int negativeArray[] = {-1,-10,-20,-30,-40,-50};
+    vector<int> negativeVector(negativeArray, negativeArray + sizeof(negativeArray) / sizeof(negativeArray[0]));
+
+
+
+    cout << "Sorted Array: " << ConvertArrayToString(sortedVector) << endl;
+    MinDistance(sortedVector);
+    MinDistance2(sortedVector);
+    MinDistTIME(sortedVector);
+    MinDist2TIME(sortedVector);
+    cout << "Unsorted Array: " << ConvertArrayToString(unsortedVector) << endl;
+    MinDistance(unsortedVector);
+    MinDistance2(unsortedVector);
+    MinDistTIME(unsortedVector);
+    MinDist2TIME(unsortedVector);
+    cout << "Array containing Duplicate: " << ConvertArrayToString(duplicateVector) << endl;
+    MinDistance(duplicateVector);
+    MinDistance2(duplicateVector);
+    MinDistTIME(duplicateVector);
+    MinDist2TIME(duplicateVector);
+    cout << "Array containing negatives: " << ConvertArrayToString(negativeVector) << endl;
+    MinDistance(negativeVector);
+    MinDistance2(negativeVector);
+    MinDistTIME(negativeVector);
+    MinDist2TIME(negativeVector);
 }
 //runBasicOperations
 // vars: increments - number of increments(of 10) to be taken before termination
@@ -145,6 +182,7 @@ string ConvertArrayToString(vector <int> Array){
     string result = "";
     for(int i =0;i<Array.size();i++){
         result += to_string(Array[i]);
+        result += " ";
     }
     return result;
 }
@@ -176,7 +214,7 @@ tuple<float,long> MinDistance(vector<int> numbers){  //takes vector and returns 
             }
         }
     }
-    cout << "array size: " << numbers.size() << " mindist: " << dmin << " basic operations: " << basicOperations <<endl;
+    cout << "MinDistance - array size: " << numbers.size() << " mindist: " << dmin << " basic operations: " << basicOperations <<endl;
     return make_tuple(dmin, basicOperations);
 }
 
@@ -197,6 +235,8 @@ tuple<float, long> MinDistance2(vector<int> numbers){
             }
         }
     }
+    cout << "MinDistance2 - array size: " << numbers.size() << " mindist: " << dmin << " basic operations: " << basicOperations <<endl;
+
     return make_tuple(dmin, basicOperations);
 }
 
@@ -217,7 +257,7 @@ tuple<float, float> MinDistTIME(vector<int> numbers){
     }
     steady_clock::time_point endTime = steady_clock::now();
     timeElapsed = duration_cast<duration<double>>(endTime - startTime);
-    cout << "array size: " << numbers.size() << " mindist: " << "time taken: " << timeElapsed.count() << endl;
+    cout <<"MinDistTIME - array size: " << numbers.size() << " mindist: " << dmin << " time taken: " << timeElapsed.count() << endl;
     return make_tuple(dmin, timeElapsed.count());
 }
 
@@ -240,5 +280,7 @@ tuple<float, float> MinDist2TIME(vector<int> numbers){
     }
     steady_clock::time_point endTime = steady_clock::now();
     timeElapsed = duration_cast<duration<double>>(endTime - startTime);
+    cout <<"MinDist2TIME - array size: " << numbers.size() << " mindist: " << dmin <<" time taken: " << timeElapsed.count() << endl;
+
     return make_tuple(dmin, timeElapsed.count());
 }
