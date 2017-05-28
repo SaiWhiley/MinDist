@@ -1,3 +1,10 @@
+//MinDist | Sai Whiley | Liam Abell | May 2017
+// Implements two algorithms which find the smallest distance between two
+// entries in an array. Records time and operation count for these algorithms.
+// Sends results to csv. Generates random data to test upon.
+
+
+
 #define __USE_MINGW_ANSI_STDIO 0
 #include <windows.h>
 #include <limits>
@@ -37,7 +44,11 @@ int main(){
     runTimeElapsed(400, 1);
 
 }
-
+//runTimeElapsed
+// vars: increments - number of increments(of 10) to be taken before termination
+//       trials - number of trials per increment
+//Tests each algorithm a given number of times over a given number of intervals
+//and records the TIME TAKEN. Results are piped to csv
 void runTimeElapsed(int increments, int trials){
     int numValues = 0;
     vector<int> results = {};
@@ -82,7 +93,11 @@ void runTimeElapsed(int increments, int trials){
     resultsStream.close();
 
 }
-
+//runBasicOperations
+// vars: increments - number of increments(of 10) to be taken before termination
+//       trials - number of trials per increment
+//Tests each algorithm a given number of times over a given number of intervals
+//and records BASIC OPERATIONS. Results are piped to csv
 void runBasicOperations(int increments, int trials){
     int numValues = 0;
     long operationsTotalONE;
@@ -134,6 +149,9 @@ string ConvertArrayToString(vector <int> Array){
     return result;
 }
 
+//MakeRandomArray
+//returns: vector of ints | vars: numElements - the number of elements to be generated
+//Creates a vector of given length containing random integers between 1 and 100
 vector<int> MakeRandomArray(int numElements){
     mt19937 random_engine(time(0));
     vector<int> testArray;
@@ -143,6 +161,10 @@ vector<int> MakeRandomArray(int numElements){
     return testArray;
 }
 
+//MinDistance
+//returns: tuple<float,long> - represents minimum distance and number of basic ops respectively
+//vars: vector<int> numbers - any vector of values
+//Finds the minimum distance between any two values
 tuple<float,long> MinDistance(vector<int> numbers){  //takes vector and returns <minDist, Operations>
     long int basicOperations = 0;
     double dmin = numeric_limits<double>::max();
@@ -158,6 +180,10 @@ tuple<float,long> MinDistance(vector<int> numbers){  //takes vector and returns 
     return make_tuple(dmin, basicOperations);
 }
 
+//MinDistance2
+//returns: tuple<float,long> - represents minimum distance and number of basic ops respectively
+//vars: vector<int> numbers - any vector of values
+//Finds the minimum distance between any two values
 tuple<float, long> MinDistance2(vector<int> numbers){
     long int basicOperations = 0;
     double temp = 0;
@@ -174,6 +200,10 @@ tuple<float, long> MinDistance2(vector<int> numbers){
     return make_tuple(dmin, basicOperations);
 }
 
+//MinDistTIME
+//returns: tuple<float,float> - represents minimum distance and time taken respectively
+//vars: vector<int> numbers - any vector of values
+//Finds the minimum distance between any two values
 tuple<float, float> MinDistTIME(vector<int> numbers){
     double dmin = numeric_limits<double>::max();
     duration<double> timeElapsed;
@@ -191,6 +221,10 @@ tuple<float, float> MinDistTIME(vector<int> numbers){
     return make_tuple(dmin, timeElapsed.count());
 }
 
+//MinDist2TIME
+//returns: tuple<float,float> - represents minimum distance and time taken respectively
+//vars: vector<int> numbers - any vector of values
+//Finds the minimum distance between any two values
 tuple<float, float> MinDist2TIME(vector<int> numbers){
     double temp = 0;
     double dmin = numeric_limits<double>::max();
